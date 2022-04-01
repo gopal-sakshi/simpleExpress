@@ -1,5 +1,5 @@
 sudo lsof -i :3044          // details of process which is using port 3044
-
+                                // lsof = List Open Files
 COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 node    65499 vsspl   21u  IPv6 510263      0t0  TCP *:3044 (LISTEN)
 
@@ -12,8 +12,22 @@ kill all nodemon instances
 -----------------------------------------------------------------------------------------
 nodemon restarts faster than the KILL signal
 
-so, add delay flag
+a) nodemon --delay 500ms app.js                 // so, add delay flag
+b) add two new scripts in your package.json     // start23 & kill
+c) handle SIGUSR2 signal
+    When Nodemon detects changes in any monitored files it will send a SIGUSR2 signal to the loaded application, 
+        then it respawns ("reloads") a new instance of that application in memory. 
+    If you don't handle that SIGUSR2 signal then the old copy of your application will still be live, 
+        listening for incoming requests on port 3001 (or whatever).
+    So the new instance is starting. It is going to listen to the same programmed port, namely 3001. 
+    But since the old copy is not yet dead (still running) then that port is still be used which will result in:
+        Error: listen EADDRINUSE: address already in use
+    That's the cause of the problem in a nutshell.
+    The solution is to listen to that SIGUSR2 signal and to gracefully shutdown your application programatically when that event occurs. 
+    look for this in the code ------------>     process.once("SIGUSR2"
+-----------------------------------------------------------------------------------------
 
-    nodemon --delay 500ms app.js
-
-
+it seems we can add configuration in package.json
+- see "nodemonConfig" property in package.json... there we defined
+    - the files to watch for
+    

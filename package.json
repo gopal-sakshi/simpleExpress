@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --delay 500ms app.js"
+    "dev": "nodemon app.js",
+    "start23": "npm run kill23 && nodemon app.js",
+    "kill": "kill -9 $(lsof -i :3044) &>/dev/null | exit 0",
+    "kill23": "lsof -i:3044 | awk 'FNR==2 {print $2}' | xargs kill -9",
+    "use_this": "nodemon index.js"
   },
   "author": "GopAL",
   "license": "ISC",
@@ -14,6 +18,24 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "kill-port": "^1.6.1",
+    "nodemon": "^2.0.8"
+  },
+  "nodemonConfig": {
+    "delay": "1000"
+  },
+  "duplicate_nodemonConfig": {
+    "watch": [
+      "server",
+      "app.js"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "*.test.ts"
+    ],
+    "delay": "1000",
+    "execMap": {
+      "ts": "ts-node"
+    }
   }
 }

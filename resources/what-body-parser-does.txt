@@ -1,0 +1,21 @@
+bodyparser
+- body-parser extracts the entire body portion of an incoming request stream and exposes it on req.body.
+- When you don't use body-parser 
+    you get the raw request (your body & headers aren't in the root object of request parameter). 
+    You will have to individually manipulate all the fields.
+- But http POST/PUT requests will have "body"
+    - So, to handle HTTP POST requests in Express.js (version 4 & above), you need to install the middleware module called body-parser.
+
+
+APPROACH 1
+
+A) app.use(express.json()); 
+    // then, you can access req.body
+    // because --->  exports.json = bodyParser.json;        // from express documentation
+
+B) see "simpleNode" repo (or) request_body.txt file in nodejs/docs folder
+
+
+
+
+

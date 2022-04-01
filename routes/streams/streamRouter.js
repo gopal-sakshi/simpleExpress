@@ -1,12 +1,21 @@
 var express = require('express');
+var path = require("path");
 
 var router = express.Router();
 var fs = require('fs');
 
 router.get('/', (req, res) => {
-    console.log(__dirname);
     res.send('Welcome to streams');
 });
+
+router.get('/path', (req, res) => {
+    console.log("__dirname:    ", __dirname);
+    console.log("process.cwd() : ", process.cwd());
+    console.log("./ : ", path.resolve("./"));
+    console.log("filename: ", __filename);
+    res.send('paths printed in console');
+});
+
 router.get('/novel', (req, res) => {
     console.log('inside get novel');
 

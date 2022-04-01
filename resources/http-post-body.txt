@@ -1,0 +1,17 @@
+extract information from a POST body in Express.js
+
+
+The HTTP protocol provides a number of ways to pass information from a client to a server
+a) GET ---> path params & query params
+b) PUT ---> body object... query params
+c) POST
+    most flexible & most commonly used
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+https://www.freecodecamp.org/news/here-is-the-most-popular-ways-to-make-an-http-request-in-javascript-954ce8c95aaa/
+https://www.w3schools.com/xml/ajax_intro.asp
