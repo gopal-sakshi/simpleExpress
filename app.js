@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser= require('body-parser');
 
 const app = express();
-
+const cors = require('cors');
 
 // Express lets us use middleware with the use method.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +22,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   console.log(process.pid);
 //   next();
 // });
+
+// the following origins wont throw CORS error --------------------------> for some reason this didnt work...
+// app.use(cors({
+//   origin: ['http://localhost:9999/', 'http://localhost:9998/']
+// }));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);  
+  next(); 
+})
 
 const authRouter = require('./routes/auth/auth23.router');
 const bufferRouter = require('./routes/buffers/bufferRouter');
