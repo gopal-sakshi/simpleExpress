@@ -5,6 +5,10 @@ const app = express();
 const cors = require('cors');
 
 // Express lets us use middleware with the use method.
+app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded, basically can only parse incoming Request Object if strings or arrays
+app.use(bodyParser.urlencoded({ extended: false }));
+// combines the 2 above, then you can parse incoming Request Object if object, with nested objects, or generally any type.
 app.use(bodyParser.urlencoded({ extended: true }));
 /*  we call app.use(bodyParser) before defining our route. 
       The order here matters. 
