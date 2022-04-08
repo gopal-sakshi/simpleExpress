@@ -27,3 +27,11 @@ In order to create a JSON web token, we will need — three things
     http://travistidwell.com/jsencrypt/demo/
 - Signing options
 
+----------------------------------------------------------------------------------------------------------------
+
+In kalgudi
+- for login service... we will not send token as part of 'Request Headers'
+    we will just send userName & password
+    as a response, we get token... and we save that "token" in localStorage
+- for all other services... we will send token as part of 'Request headers'
+

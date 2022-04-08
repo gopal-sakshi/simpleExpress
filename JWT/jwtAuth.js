@@ -1,46 +1,63 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-
-// PAYLOAD
-var payload = {
-    data1: "Data 1",
-    data2: "Data 2",
-    data3: "Data 3",
-    data4: "Data 4",
-};
+var jwtInterface = {};
 
 // PRIVATE and PUBLIC key
-var privateKEY  = fs.readFileSync('./privateKey.pem', 'utf8');
-var publicKEY  = fs.readFileSync('./publicKey.pem', 'utf8');
+// var privateKey1  = fs.readFileSync('./privateKey.pem', 'utf8');
+// var publicKey1  = fs.readFileSync('./publicKey.pem', 'utf8');        // this'll work if you directly run this file
+                                                                        // like node jwtAuth.js
+                                                                        // but if u run from app.js (or) index.js ---> it fails
 
-var i  = 'gopalSimpleExpress';          // Issuer 
-var s  = 'some@user.com';               // Subject 
-var a  = 'gopalSimpleExpress_A';        // Audience
-
-// SIGNING OPTIONS
-var signOptions = {
-    issuer:  i,                 // Software organization that issues the token.
-    subject:  s,                // Intended user of the token.
-    audience:  a,               // Basically identity of the intended recipient of the token
-    expiresIn:  "12h",          // Expiration time after which the token will be invalid.
-    algorithm:  "RS256"         // Encryption algorithm to be used to protect the token.
-
-};
-
-var jwtToken = jwt.sign(payload, privateKEY, signOptions);
-console.log("token23 -----> " + jwtToken);     // Our token is generated
+var privateKey = fs.readFileSync('JWT/privateKey.pem', 'utf8');
+var publicKey = fs.readFileSync('JWT/publicKey.pem', 'utf8');
 
 
-var verifyOptions = {
-    issuer:  i,
-    subject:  s,
-    audience:  a,
-    expiresIn:  "12h",
-    algorithm:  ["RS256"]       // its Array... but in signOptions --> its string ???
-};
+jwtInterface.generateToken = function(payload) {
 
-var isVerified = jwt.verify(jwtToken, publicKEY, verifyOptions);     // here, we use publicKey to verify
-console.log("JWT verification result: " + JSON.stringify(isVerified));
+    // SIGNING OPTIONS
+    var signOptions = {
+        issuer:  'gopalSimpleExpress',                 // Software organization that issues the token.
+        subject:  'some@user.com',                // Intended user of the token.
+        audience:  'gopalSimpleExpress_A',               // Basically identity of the intended recipient of the token
+        expiresIn:  "60s",          // Expiration time after which the token will be invalid.
+        /*  
+                    expiresIn: "10h" // it will be expired after 10 hours
+                    expiresIn: "20d" // it will be expired after 20 days
+                    expiresIn: 120 // it will be expired after 120ms
+                    expiresIn: "120s" // it will be expired after 120s
+        */
+        algorithm:  "RS256"         // Encryption algorithm to be used to protect the token.
+    };
+
+    var jwtToken = jwt.sign(payload, privateKey, signOptions);
+    console.log("token23 -----> " + jwtToken);     // Our token is generated    
+    return jwtToken;    
+}
 
 
+jwtInterface.verifyToken = function(payload) {
+    
+    var verifyOptions = {
+        issuer:  'gopalSimpleExpress',
+        subject:  'some@user.com',
+        audience:  'gopalSimpleExpress_A',
+        expiresIn:  "60s",
+        algorithm:  ["RS256"]       // its Array... but in signOptions --> its string ???
+    };
 
+    try {
+        var tokenData = jwt.verify(payload, publicKey, verifyOptions);     // here, we use publicKey to verify
+        console.log("JWT verification result: " + JSON.stringify(tokenData));
+        return tokenData
+    } catch(error) {
+        console.log(error);
+        if (error.name == jwt.TokenExpiredError.name) {
+            return `TOKEN expired @ ${jwt.TokenExpiredError.expiredAt}`
+        } else {
+            return 'INVALID TOKEN'
+        }        
+    }
+    
+}
+
+module.exports = jwtInterface

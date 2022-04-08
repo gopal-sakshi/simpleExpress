@@ -1,0 +1,26 @@
+This is how Http Response Object
+
+{
+    "headers": {
+        "normalizedNames": {},
+        "lazyUpdate": null
+    },
+    "status": 200,
+    "statusText": "OK",
+    "url": "http://localhost:3044/auth/signin",
+    "ok": true,
+    "type": 4,
+    "body": {
+        "code": 500,
+        "data": "",
+        "info": "signIn failed"
+    }
+}
+
+res.send({
+        blah1: '', 
+        blah2: ''
+    })                          ----> it goes in the body property of http response object
+
+we explicitly need to set the status
+res.status = 401;
