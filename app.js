@@ -47,8 +47,8 @@ const bufferRouter = require('./routes/buffers/bufferRouter');
 const headerRouter = require('./routes/headers/headersRouter');
 const quoteRouter = require('./routes/quotes/quoteRouter');
 const streamRouter = require('./routes/streams/streamRouter');
-
-
+const moduleCacheRouter = require('./routes/moduleCache/moduleCache');
+const otherStuffRouter = require('./routes/otherStuff/otherStuff23.router')
 
 
 app.use('/auth', authRouter);
@@ -56,7 +56,7 @@ app.use('/buffer', bufferRouter);
 app.use('/header', headerRouter);
 app.use('/quote', quoteRouter);
 app.use('/stream', streamRouter);
-
-
+app.use('/moduleCache', moduleCacheRouter);
+app.use('/otherStuff',otherStuffRouter);
 
 module.exports = app;
