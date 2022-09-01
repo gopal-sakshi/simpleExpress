@@ -33,7 +33,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // }));
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,token');   
   // if you remove token in allow-headers... then, you'll get CORS error for any http request headers with token property  (OR)

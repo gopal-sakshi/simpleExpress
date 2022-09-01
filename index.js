@@ -4,9 +4,13 @@ var app = require('./app');
 PORT = process.env.PORT || process.argv[2] || 3044;
 
 app.set('port', PORT);
-var serverInstance = http.createServer(app);
-serverInstance.listen(PORT, ()=> {
+var serverInstance = http.createServer(app);      // CREATES SERVER
+
+serverInstance.listen(PORT, ()=> {                // LISTEN method on createServer()
     console.log(`listening on ${PORT}`);
+}).on('request', (req,res) => {                   // 'ON' method nested
+  // res.write('Hello from node & express');
+  // res.write(`server listening at ${this.address().PORT}`);     // IDIOT CODE... this.address() is not a method
 });
 
 // nodemon EADDRINUSE error port already in use... to handle that
@@ -19,6 +23,23 @@ process.once("SIGUSR2", () => {
     });
 });
 
+/*
+    RUN this simpleExpress from multiple ports...
+
+    // DONT USE THIS
+      nodemon index.js 3045
+      nodemon index.js 3046
+      nodemon index.js 3047         // it seems I got nodemon command not found... anyway ignore this
+                                    // nodemon is only for restarting server as soon as changes are made
+                                    // we will only want to this simpleExpress on multiple ports
+                                    // at this point, we are not bothered to restart server as soon as changes are made
+                                  // if you want to 'RESTART'           ---------> "npm run use_this"
+
+    // USE THESE in 3 terminals.... hit the endpoint "http://localhost:82/otherStuff/port"
+      node index.js 3045
+      node index.js 3046
+      node index.js 3047  
+*/
 
 /*
 
