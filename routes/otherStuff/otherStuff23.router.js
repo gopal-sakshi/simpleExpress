@@ -26,4 +26,22 @@ otherRouter.put('/cors', (req, res) => {
     });    
 });
 
+
+/********************************************************************** */
+
+// next() is part of connect which inturn is an express dependency. 
+    // The purpose of calling next() is to trigger the next middle ware in express stack.
+
+function isGoodBoy(req,res,next) {
+    console.log(req);
+    // do some validation checks... req.headers & stuff...
+    if(req.body.shouldAllow) { return next(); } 
+    else { res.send('pampanu ra rey...'); }    
+}
+
+otherRouter.get('/nextCb', isGoodBoy, (req,res) => {
+    res.send('next() gurinchi ardham ayindaa');
+});
+
+/********************************************************************** */
 module.exports = otherRouter;

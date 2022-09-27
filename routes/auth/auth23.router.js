@@ -4,6 +4,12 @@ const fs = require('fs');
 var path = require("path");
 var jwtInterface = require('../../JWT/jwtAuth');
 
+authRouter.get('/signin', (req, res) => {    
+    console.log('inside signInnn');    
+    console.log(req.body);
+    res.send('gasoline');
+});
+
 authRouter.put('/signin', (req, res) => {
     
     console.log('inside signInnn');    
