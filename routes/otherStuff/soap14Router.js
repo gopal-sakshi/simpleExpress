@@ -22,7 +22,9 @@ soap14Router.get('/soap1', (req,res) => {
 /*
     To make a SOAP request a WSDL file is must. 
     If you don’t have a WSDL file ask the 3rd party vendor to provide you the WSDL file.
-
+    - Just like how 3rd party provides ---> API documentation for REST service
+    - 3rd party provides -----------------> WSDL file (which contains XML schema)
+    
     You must need diffrent WSDL files for different environments. ie development, staging, production.
     
 */
