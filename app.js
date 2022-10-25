@@ -45,13 +45,15 @@ app.use(function (req, res, next) {
   next(); 
 })
 
-const authRouter = require('./routes/auth/auth23.router');
+const authRouter = require('./routes/auth/auth23Router');
 const bufferRouter = require('./routes/buffers/bufferRouter');
 const headerRouter = require('./routes/headers/headersRouter');
 const quoteRouter = require('./routes/quotes/quoteRouter');
 const streamRouter = require('./routes/streams/streamRouter');
 const moduleCacheRouter = require('./routes/moduleCache/moduleCache');
-const otherStuffRouter = require('./routes/otherStuff/otherStuff23.router')
+const miscRouter = require('./routes/otherStuff/port-cors-misc');
+const soap14Router = require('./routes/otherStuff/port-cors-misc');
+
 
 
 app.use('/auth', authRouter);
@@ -60,6 +62,7 @@ app.use('/header', headerRouter);
 app.use('/quote', quoteRouter);
 app.use('/stream', streamRouter);
 app.use('/moduleCache', moduleCacheRouter);
-app.use('/otherStuff',otherStuffRouter);
+app.use('/otherStuff',miscRouter);
+app.use('/soap14', soap14Router);
 
 module.exports = app;
