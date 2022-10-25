@@ -52,7 +52,7 @@ const quoteRouter = require('./routes/quotes/quoteRouter');
 const streamRouter = require('./routes/streams/streamRouter');
 const moduleCacheRouter = require('./routes/moduleCache/moduleCache');
 const miscRouter = require('./routes/otherStuff/port-cors-misc');
-const soap14Router = require('./routes/otherStuff/port-cors-misc');
+const soap14Router = require('./routes/otherStuff/soap14Router');
 
 
 
