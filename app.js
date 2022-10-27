@@ -55,6 +55,10 @@ const miscRouter = require('./routes/otherStuff/port-cors-misc');
 const soap14Router = require('./routes/otherStuff/soap14Router');
 
 
+// DO NOT USE this route here... Bcoz, it matches all routes
+// app.use('/', (req, res) => {
+//   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
+// });
 
 app.use('/auth', authRouter);
 app.use('/buffer', bufferRouter);
@@ -64,5 +68,10 @@ app.use('/stream', streamRouter);
 app.use('/moduleCache', moduleCacheRouter);
 app.use('/otherStuff',miscRouter);
 app.use('/soap14', soap14Router);
+
+// Use this at the last... if you use it at first, all /auth, /buffer ---> matches this route
+app.use('/', (req, res) => {
+  res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
+});
 
 module.exports = app;
