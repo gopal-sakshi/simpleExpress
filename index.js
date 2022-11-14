@@ -1,6 +1,6 @@
 var http = require('http');
 var app = require('./app');
-
+process.title = "simpleExpress"                 // this is used for pidof  ===> process.title
 PORT = process.env.PORT || process.argv[2] || 3044;
 
 app.set('port', PORT);

@@ -1,5 +1,5 @@
 {
-  "name": "testing_deployed",
+  "name": "simple-express",
   "version": "1.0.0",
   "description": "This is to create some server... so that I can host my angular application here...",
   "main": "index.js",
@@ -10,7 +10,9 @@
     "kill": "kill -9 $(lsof -i :3044) &>/dev/null | exit 0",
     "kill23": "lsof -i:3044 | awk 'FNR==2 {print $2}' | xargs kill -9",
     "use_this": "nodemon index.js 3044",
-    "use_this_final": "node index.js 3044"
+    "use_this_final": "node index.js 3044",
+    "stop": "kill $(pidof 'simpleExpress')",
+    "status": "$(pidof 'simpleExpress')" 
   },
   "author": "GopAL",
   "license": "ISC",
