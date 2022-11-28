@@ -8,6 +8,18 @@ router.get('/', (req, res) => {
     res.send('Welcome to streams');
 });
 
+router.get('/endpoint1', async (req, res) => {
+    const result = await timeWaste1();
+    res.setHeader('Content-Type', 'application/json');
+    res.send(result);
+});
+
+router.get('/endpoint2', async (req, res) => {
+    const result = await timeWaste2();
+    res.setHeader('Content-Type', 'application/json');
+    res.send(result);
+});
+
 router.get('/path', (req, res) => {
     console.log("__dirname:    ", __dirname);
     console.log("process.cwd() : ", process.cwd());
@@ -28,4 +40,17 @@ router.get('/novel', (req, res) => {
     
     readableStream2.pipe(res);
 })
+
+async function timeWaste1() {
+    return new Promise((resolve, rej) => {
+        setTimeout(() => resolve('streams-endpoint1'), 2000);
+    })
+}
+
+async function timeWaste2() {
+    return new Promise((resolve, rej) => {
+        setTimeout(() => resolve('streams-endpoint2'), 3000);
+    })
+}
+
 module.exports = router;
