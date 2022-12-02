@@ -4,6 +4,11 @@ const bodyParser= require('body-parser');
 const app = express();
 const cors = require('cors');
 
+// built-in middleware express.static to serve static files, such as images, CSS, JavaScript
+  // run testing angular repo... http://localhost:9999/
+app.use(express.static('public23'));
+
+
 // Express lets us use middleware with the use method.
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded, basically can only parse incoming Request Object if strings or arrays
@@ -53,7 +58,7 @@ const streamRouter = require('./routes/streams/streamRouter');
 const moduleCacheRouter = require('./routes/moduleCache/moduleCache');
 const miscRouter = require('./routes/otherStuff/port-cors-misc');
 const soap14Router = require('./routes/otherStuff/soap14Router');
-
+const fileUploadRouter = require('./routes/otherStuff/file-upload23');
 
 // DO NOT USE this route here... Bcoz, it matches all routes
 // app.use('/', (req, res) => {
@@ -68,7 +73,7 @@ app.use('/stream', streamRouter);
 app.use('/moduleCache', moduleCacheRouter);
 app.use('/otherStuff',miscRouter);
 app.use('/soap14', soap14Router);
-
+app.use('/fileUpload23', fileUploadRouter);
 // Use this at the last... if you use it at first, all /auth, /buffer ---> matches this route
 app.use('/', (req, res) => {
   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
