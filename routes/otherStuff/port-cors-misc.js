@@ -2,7 +2,7 @@ const express = require('express');
 const otherRouter = express.Router();
 
 const axios54 = require('axios');
-
+/********************************************************************** */
 otherRouter.get('/port', (req,res) => {
     console.log(`you've port`);
     console.log('local Port = ', req.socket.localPort);
@@ -26,6 +26,15 @@ otherRouter.put('/cors', (req, res) => {
     });    
 });
 
+// this matches all routes 
+    // localhost:3044/otherStuff/page/211
+    // localhost:3044/otherStuff/discussion/87
+otherRouter.get(/^\/(discussion|page)\/(.+)/, (req, res) => {
+    console.log(req.params[0]);
+    console.log(req.params[1]);
+    res.send('hammayya');
+})
+
 
 /********************************************************************** */
 
@@ -44,4 +53,7 @@ otherRouter.get('/nextCb', isGoodBoy, (req,res) => {
 });
 
 /********************************************************************** */
+
+
+
 module.exports = otherRouter;
