@@ -1,7 +1,7 @@
 var http = require('http');
 var app = require('./app');
-process.title = "simpleExpress"                 // this is used for pidof  ===> process.title
-PORT = process.env.PORT || process.argv[2] || 3044;
+process.title = "simpleExpress"                             // this is used for pidof  ===> process.title
+PORT = process.env.PORT || process.argv[2] || 3044;         // use "RENDER" (or) "heroku" provided port
 
 app.set('port', PORT);
 var serverInstance = http.createServer(app);      // CREATES SERVER

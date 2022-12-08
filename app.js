@@ -37,6 +37,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   origin: ['http://localhost:9999/', 'http://localhost:9998/']
 // }));
 
+// req.ip will return the real IP address even if behind proxy
+app.set('trust proxy', true)
+
 app.use(function (req, res, next) {
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
   res.setHeader('Access-Control-Allow-Origin', '*');
