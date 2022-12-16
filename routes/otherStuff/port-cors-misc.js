@@ -33,7 +33,16 @@ otherRouter.get(/^\/(discussion|page)\/(.+)/, (req, res) => {
     console.log(req.params[0]);
     console.log(req.params[1]);
     res.send('hammayya');
-})
+});
+
+// this route will give Timed Out after 2 seconds;
+otherRouter.get('/timeout23', (req, res) => {
+    req.setTimeout(200, (req, res) => {
+        res.send('Timed Out!!! BHAK!!!');
+    });
+    for(let i=0; i<1e9; i++) {}
+    res.send('time out avvaledu');
+});
 
 
 /********************************************************************** */
