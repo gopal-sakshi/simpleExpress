@@ -1,6 +1,6 @@
 const express = require('express');
 const otherRouter = express.Router();
-
+const fs = require('fs').promises;
 const axios54 = require('axios');
 /********************************************************************** */
 otherRouter.get('/port', (req,res) => {
@@ -43,6 +43,14 @@ otherRouter.get('/timeout23', (req, res) => {
     for(let i=0; i<1e9; i++) {}
     res.send('time out avvaledu');
 });
+
+
+// file operations...
+otherRouter.get('/readFile23', async(req,res) => {
+    const fileContents = await fs.readFile('resources/readMe.txt');
+    console.log(fileContents.toString());
+    res.send('gooddu');
+})
 
 
 /********************************************************************** */

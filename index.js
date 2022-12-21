@@ -13,9 +13,9 @@ serverInstance.listen(PORT, ()=> {                // LISTEN method on createServ
   // res.write(`server listening at ${this.address().PORT}`);     // IDIOT CODE... this.address() is not a method
 });
 
-serverInstance.setTimeout(100, () => {
-  console.log('time out');
-})
+// serverInstance.setTimeout(100, () => {
+//   console.log('time out');
+// })
 
 // nodemon EADDRINUSE error port already in use... to handle that
 process.once("SIGUSR2", () => {
