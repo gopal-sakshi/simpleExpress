@@ -12,7 +12,7 @@
     "use_this": "nodemon index.js 3044",
     "use_this_final": "node index.js 3044",
     "stop": "kill $(pidof 'simpleExpress')",
-    "status": "$(pidof 'simpleExpress')" 
+    "status": "$(pidof 'simpleExpress')"
   },
   "author": "GopAL",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "soap": "^0.8.0"
   },
