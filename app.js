@@ -62,6 +62,7 @@ const moduleCacheRouter = require('./routes/moduleCache/moduleCache');
 const miscRouter = require('./routes/otherStuff/port-cors-misc');
 const soap14Router = require('./routes/otherStuff/soap14Router');
 const fileUploadRouter = require('./routes/otherStuff/file-upload23');
+const cookieRouter = require('./routes/otherStuff/cookie_stuff');
 
 // DO NOT USE this route here... Bcoz, it matches all routes
 // app.use('/', (req, res) => {
@@ -77,6 +78,19 @@ app.use('/moduleCache', moduleCacheRouter);
 app.use('/otherStuff',miscRouter);
 app.use('/soap14', soap14Router);
 app.use('/fileUpload23', fileUploadRouter);
+app.use('/cookieStuff', cookieRouter);
+
+// Middlewares can be chained. We can use more than one middleware on an Express app instance
+  // middlewares can be applied on "app.use()"    (or) app.METHOD (like app.put(), app.get() )
+  // you can also use REST params ====> app.get("/middleware24", ...middlewares)
+app.use('/middleware23', 
+  function (req, res, next) { req.middlewares = ["middleware1"]; next() },
+  function (req, res, next) { req.middlewares.push("middleware2"); next() },
+  function (req, res, next) { req.middlewares.push("middleware3"); res.json(req.middlewares) }
+  );
+
+
+
 // Use this at the last... if you use it at first, all /auth, /buffer ---> matches this route
 app.use('/', (req, res) => {
   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
