@@ -69,6 +69,10 @@ const cookieRouter = require('./routes/otherStuff/cookie_stuff');
 //   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
 // });
 
+
+// LOAD TESTING ===> use apache bench marking tool
+  // ab -n 1000 -c 100 http://localhost:3044/stream
+  // see apache-bench
 app.use('/auth', authRouter);
 app.use('/buffer', bufferRouter);
 app.use('/header', headerRouter);
