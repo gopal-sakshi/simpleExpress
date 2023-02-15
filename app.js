@@ -63,7 +63,7 @@ const miscRouter = require('./routes/otherStuff/port-cors-misc');
 const soap14Router = require('./routes/otherStuff/soap14Router');
 const fileUploadRouter = require('./routes/otherStuff/file-upload23');
 const cookieRouter = require('./routes/otherStuff/cookie_stuff');
-
+const footballRouter = require('./routes/otherStuff/football23');
 // DO NOT USE this route here... Bcoz, it matches all routes
 // app.use('/', (req, res) => {
 //   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
@@ -83,6 +83,7 @@ app.use('/otherStuff',miscRouter);
 app.use('/soap14', soap14Router);
 app.use('/fileUpload23', fileUploadRouter);
 app.use('/cookieStuff', cookieRouter);
+app.use('/football23', footballRouter);
 
 // Middlewares can be chained. We can use more than one middleware on an Express app instance
   // middlewares can be applied on "app.use()"    (or) app.METHOD (like app.put(), app.get() )
