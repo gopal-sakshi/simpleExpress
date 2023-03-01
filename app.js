@@ -1,12 +1,24 @@
 const express = require('express');
 const bodyParser= require('body-parser');
-
 const app = express();
 const cors = require('cors');
 
+/************************************ MIDDLEWARE *******************************************************/
 // built-in middleware express.static to serve static files, such as images, CSS, JavaScript
   // run testing angular repo... http://localhost:9999/
 app.use(express.static('public23'));
+
+
+// using AsyncLocalStorage middleware
+const { AsyncLocalStorage } = require("async_hooks");
+const asyncLocalStorage = new AsyncLocalStorage();
+const requestIdMiddleware = (req, res, next) => {
+  asyncLocalStorage.run(new Map(), () => {
+    asyncLocalStorage.getStore().set("requestId", parseInt(Math.random()*1000000));
+    next();
+  });
+};
+app.use(requestIdMiddleware);
 
 
 // Express lets us use middleware with the use method.
@@ -52,6 +64,8 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);  
   next(); 
 })
+/************************************ MIDDLEWARE **********************************************/
+
 
 const authRouter = require('./routes/auth/auth23Router');
 const bufferRouter = require('./routes/buffers/bufferRouter');
@@ -89,12 +103,23 @@ app.use('/football23', footballRouter);
   // middlewares can be applied on "app.use()"    (or) app.METHOD (like app.put(), app.get() )
   // you can also use REST params ====> app.get("/middleware24", ...middlewares)
 app.use('/middleware23', 
-  function (req, res, next) { req.middlewares = ["middleware1"]; next() },
-  function (req, res, next) { req.middlewares.push("middleware2"); next() },
-  function (req, res, next) { req.middlewares.push("middleware3"); res.json(req.middlewares) }
+    function (req, res, next) { req.middlewares = ["middleware1"]; next() },
+    function (req, res, next) { req.middlewares.push("middleware2"); next() },
+    function (req, res, next) { req.middlewares.push("middleware3"); res.json(req.middlewares) }
   );
 
+app.use('/asyncLocalStorage1', (req, res) => {
+  const id = asyncLocalStorage.getStore().get("requestId");  
+  res.send(`request Id for asyncLocalStorage1 ===> ${id}`);
+  // res.send('request Id for asyncLocalStorage1 ===>', id);     // this throws ERROR... res.send is not like console.log()
+                                                              // it cant take two arguments (msg23, id)... res.send('msg23 ==>', id)
+});
 
+app.use('/asyncLocalStorage2', (req, res) => {
+  const id = asyncLocalStorage.getStore().get("requestId");
+  console.log(`[${id}] request received`);
+  res.send(`request Id for asyncLocalStorage2 ===> ${id}`);  
+});
 
 // Use this at the last... if you use it at first, all /auth, /buffer ---> matches this route
 app.use('/', (req, res) => {

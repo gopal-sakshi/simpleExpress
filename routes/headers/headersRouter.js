@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var path = require("path");
+// const { AsyncLocalStorage } = require("async_hooks");
+// const asyncLocalStorage = new AsyncLocalStorage();
 
 router.get('/', (req, res) => {
-    res.status(200).send('You are at header Home');
+    // learn how to implement asyncLocalStorage across multiple modules
+    // const id = asyncLocalStorage.getStore().get("requestId");
+    // res.status(200).send(`You are at header Home with requestID ===> ${id}`);
+    
+    res.status(200).send(`You are at header Home`);
 });
 
 router.get('/pdf', (req, res) => {
