@@ -1,0 +1,10 @@
+ab -n 10000 -c 1000 http://localhost:3044/stream
+
+-n:         The number of requests to send
+-t:         A duration in seconds after which ab will stop sending requests
+-c:         The number of concurrent requests to make
+
+for results see ====> apache_bench.yml
+
+
+ab -n 10 -c 10 http://localhost:80
