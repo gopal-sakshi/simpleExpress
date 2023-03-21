@@ -44,11 +44,11 @@ app.use(function (req, res, next) {
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,token');   
+  // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,token');   
   // if you remove token in allow-headers... then, you'll get CORS error for any http request headers with token property  (OR)
   // if http request header has token ---> then access-control-allow-headers MUST contain token ---> so that it wont throw cors error
   // or simply you can do this -----> Access-Control-Allow-Headers, '*'
-
+  res.setHeader('Access-Control-Allow-Headers', '*');
   res.setHeader('Access-Control-Allow-Credentials', true);  
   next(); 
 })
@@ -64,6 +64,7 @@ const soap14Router = require('./routes/otherStuff/soap14Router');
 const fileUploadRouter = require('./routes/otherStuff/file-upload23');
 const cookieRouter = require('./routes/otherStuff/cookie_stuff');
 const footballRouter = require('./routes/otherStuff/football23');
+const sessionRouter = require('./routes/session12/session12Router');
 // DO NOT USE this route here... Bcoz, it matches all routes
 // app.use('/', (req, res) => {
 //   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
@@ -84,6 +85,7 @@ app.use('/soap14', soap14Router);
 app.use('/fileUpload23', fileUploadRouter);
 app.use('/cookieStuff', cookieRouter);
 app.use('/football23', footballRouter);
+app.use('/sessions12', sessionRouter);
 
 // Middlewares can be chained. We can use more than one middleware on an Express app instance
   // middlewares can be applied on "app.use()"    (or) app.METHOD (like app.put(), app.get() )
