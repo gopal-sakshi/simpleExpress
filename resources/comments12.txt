@@ -1,2 +1,4 @@
 {"email23":"some@gmail.com","password":"12334"}
 {"email23":"some232@gmail.com","password":"123dd4"}
+{"email23":"some@gmail.com","password":"12332","text":"Hello, this is &#96;gopal, posting a comment from postman        with lots           of spaces  &lt;html&gt; tags ........ lets see how it gets inserted"}
+{"email23":"some@gmail.com","password":"12332","comment22":"Hello, this is gopal, posting a comment from postman   with lots of spaces  &lt;html&gt; tags new lines, and stuff lets see how it gets inserted"}

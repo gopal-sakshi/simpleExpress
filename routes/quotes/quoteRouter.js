@@ -42,7 +42,7 @@ const addCommentFn23 = async (req, res, leagueName) => {
 router.post(
     '/addComment',
     body('email23').isEmail().normalizeEmail(),         
-    body('text').not().isEmpty().trim().escape(),
+    body('comment22').not().isEmpty().trim().escape(),
     body('password').isLength({ min: 5 }),    
     addCommentFn23);
 
