@@ -11,9 +11,6 @@ authRouter.get('/signin', (req, res) => {
 });
 
 authRouter.put('/signin', (req, res) => {
-    
-    console.log('inside signInnn');    
-    console.log(req.body);
     const result = validateSignin(req.body);    
     result.then(jwtToken => {
         if(jwtToken) {
@@ -23,8 +20,7 @@ authRouter.put('/signin', (req, res) => {
         } else {            
             res.status(400).send('invalid login details');            
         }
-    })
-    
+    })    
 });
 
 authRouter.put('/signup', (req, res) => {
@@ -92,13 +88,10 @@ authRouter.get('/secretArticles', (req, res) => {
 async function validateSignin(payload) {
     const userAccounts23 = `${path.resolve("./")}`+'/resources/userAccounts.txt';
     const dataToCheck = payload.userName + '_' + payload.password;
-
-    let payload23 = {
-        userName: payload.userName,
-        password: payload.password
-    };
+    let payload23 = { userName: payload.userName, password: payload.password };
     return new Promise((resolve,reject) => {
-        fs.readFile(userAccounts23, 'utf8', (err, data) => {    // if no encoding is specified like utf-8, then raw data (buffer) is returned
+        fs.readFile(userAccounts23, 'utf8', (err, data) => {    
+            // if no encoding is specified like utf-8, then raw data (buffer) is returned
             // console.log(JSON.stringify(data));
             if(data.includes(dataToCheck)) {
                 const jwtToken = jwtInterface.generateToken(payload23);

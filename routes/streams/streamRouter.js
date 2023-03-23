@@ -21,11 +21,13 @@ router.get('/endpoint2', async (req, res) => {
 });
 
 router.get('/path', (req, res) => {
-    console.log("__dirname:    ", __dirname);
-    console.log("process.cwd() : ", process.cwd());
-    console.log("./ : ", path.resolve("./"));
-    console.log("filename: ", __filename);
-    res.send('paths printed in console');
+    const paths = {
+        "__dirname": __dirname,
+        "cwd": `${process.cwd()}`,
+        "./": `${path.resolve("./")}`,
+        "filename": __filename
+    }
+    res.send({paths: paths});
 });
 
 router.get('/novel', (req, res) => {
@@ -36,21 +38,12 @@ router.get('/novel', (req, res) => {
 
     // var readableStream1 =  fs.createReadStream('../../resources/a_tale_of_two_cities.txt')      // wont work
     var readableStream2 =  fs.createReadStream('routes/streams/a_tale_of_two_cities.txt');      // will work
-    var readableStream3 = fs.createReadStream('resources/two_cities_copy.txt');                 // also works
+    // var readableStream3 = fs.createReadStream('resources/two_cities_copy.txt');                 // also works
     
     readableStream2.pipe(res);
 })
 
-async function timeWaste1() {
-    return new Promise((resolve, rej) => {
-        setTimeout(() => resolve('streams-endpoint1'), 2000);
-    })
-}
-
-async function timeWaste2() {
-    return new Promise((resolve, rej) => {
-        setTimeout(() => resolve('streams-endpoint2'), 3000);
-    })
-}
+async function timeWaste1() { return new Promise((rs,rj) => { setTimeout(() => rs('streams1'), 2000); }); }
+async function timeWaste2() { return new Promise((rs,rj) => { setTimeout(() => rs('streams2'), 3000); }); }
 
 module.exports = router;

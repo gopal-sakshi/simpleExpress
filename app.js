@@ -2,12 +2,14 @@ const express = require('express');
 const bodyParser= require('body-parser');
 const app = express();
 const cors = require('cors');
-
+const fs = require('fs');
 /************************************ MIDDLEWARE *******************************************************/
 // built-in middleware express.static to serve static files, such as images, CSS, JavaScript
   // run testing angular repo... http://localhost:9999/
 app.use(express.static('public23'));
 
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 // using AsyncLocalStorage middleware
 const { AsyncLocalStorage } = require("async_hooks");
@@ -53,14 +55,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('trust proxy', true)
 
 app.use(function (req, res, next) {
-  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9999');
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const allowedOrigins = ['http://127.0.0.1:9988', 'http://localhost:9999', 'http://localhost:9988', 'http://localhost:9979'];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  // I want to setCookie - so, withCredentials:true must be set in requestHeaders... but with credentials set to true, 
+    // you cant use wild-cards... so, * will not work
+  // res.setHeader('Access-Control-Allow-Origin', '*');
+
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,token');   
   // if you remove token in allow-headers... then, you'll get CORS error for any http request headers with token property  (OR)
   // if http request header has token ---> then access-control-allow-headers MUST contain token ---> so that it wont throw cors error
   // or simply you can do this -----> Access-Control-Allow-Headers, '*'
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('Access-Control-Allow-Headers', ['withCredentials', 'content-type']);
   res.setHeader('Access-Control-Allow-Credentials', true);  
   next(); 
 })
@@ -101,20 +111,39 @@ app.use('/cookieStuff', cookieRouter);
 app.use('/football23', footballRouter);
 app.use('/sessions12', sessionRouter);
 
+
+/************************************ MIDDLEWARE *****************************/
 // Middlewares can be chained. We can use more than one middleware on an Express app instance
   // middlewares can be applied on "app.use()"    (or) app.METHOD (like app.put(), app.get() )
   // you can also use REST params ====> app.get("/middleware24", ...middlewares)
 app.use('/middleware23', 
-    function (req, res, next) { req.middlewares = ["middleware1"]; next() },
-    function (req, res, next) { req.middlewares.push("middleware2"); next() },
-    function (req, res, next) { req.middlewares.push("middleware3"); res.json(req.middlewares) }
-  );
+  function (req, res, next) { req.middlewares = ["middleware1"]; next() },
+  function (req, res, next) { req.middlewares.push("middleware2"); next() },
+  function (req, res, next) { req.middlewares.push("middleware3"); res.json(req.middlewares) }
+);
+
+const middleware24 = {
+  authenticate: function(req, res, next) {
+    if(!req.body.user) { res.send({info: 'user is missing in payload' } )}
+    else { next() }
+  },
+  logger: function(req, res, next) {
+    fs.appendFileSync(`${__dirname}/resources_logger/middleware24_log.txt`, `${req.body.user}\n`);
+    next();
+  }
+};
+
+app.use('/middleware24', [middleware24.authenticate, middleware24.logger], (req, res) => {
+  res.send({ info: 'authenticated & log info added' });
+});
+/**************************************************************************/
 
 app.use('/asyncLocalStorage1', (req, res) => {
   const id = asyncLocalStorage.getStore().get("requestId");  
   res.send(`request Id for asyncLocalStorage1 ===> ${id}`);
-  // res.send('request Id for asyncLocalStorage1 ===>', id);     // this throws ERROR... res.send is not like console.log()
-                                                              // it cant take two arguments (msg23, id)... res.send('msg23 ==>', id)
+  // res.send('request Id for asyncLocalStorage1 ===>', id);     
+        // this throws ERROR... res.send is not like console.log()
+        // it cant take two arguments (msg23, id)... res.send('msg23 ==>', id)
 });
 
 app.use('/asyncLocalStorage2', (req, res) => {

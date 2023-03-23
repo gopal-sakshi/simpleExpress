@@ -25,10 +25,15 @@ router.use(sessions({
 
 
 router.post('/login',(req,res) => {
-    if(req.body.username == myusername && req.body.password == mypassword) {
-        session = req.session;
-        session.userid = req.body.username;
+    console.log(req.cookies);
+    if(req.cookies.sessionId23 == 'ABCDEFGHIJKLM') {
+        res.send({info: `You are already loggedIn, idiot` });
+    }
+    else if(req.body.username == myusername && req.body.password == mypassword) {
+        session = req.session; 
+        session.userid = req.body.username; 
         console.log(req.session);
+        res.cookie('sessionId23', 'ABCDEFGHIJKLM');
         res.send({ info:`Hey there, Welcome` });
     }
     else {

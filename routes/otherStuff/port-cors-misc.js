@@ -15,14 +15,9 @@ otherRouter.get('/port', (req,res) => {
 otherRouter.put('/cors', (req, res) => {
     console.log(req.body);
     let url19 = 'https://api.postalpincode.in/pincode/'+req.body.pincode
-    axios54({
-        method:'get',
-        url: url19
-    }).then(response => {
-        res.send(JSON.stringify(response.data));
-    }).catch(error => {
-        console.log(error);
-        res.send('phattu, enduko mari');
+    axios54({ method:'get', url: url19})
+        .then(response => { res.send(JSON.stringify(response.data)); })
+        .catch(error => { console.log(error); res.send('phattu, enduko mari');
     });    
 });
 
@@ -32,7 +27,7 @@ otherRouter.put('/cors', (req, res) => {
 otherRouter.get(/^\/(discussion|page)\/(.+)/, (req, res) => {
     console.log(req.params[0]);
     console.log(req.params[1]);
-    res.send('hammayya');
+    res.send({param1:req.params[0] , param2:req.params[1] });
 });
 
 // this route will give Timed Out after 2 seconds;
@@ -50,27 +45,22 @@ otherRouter.get('/readFile23', async(req,res) => {
     const fileContents = await fs.readFile('resources/readMe.txt');
     console.log(fileContents.toString());
     res.send('gooddu');
-})
+});
 
-
-/********************************************************************** */
-
+// next Callback
 // next() is part of connect which inturn is an express dependency. 
     // The purpose of calling next() is to trigger the next middle ware in express stack.
+otherRouter.get('/nextCb', isGoodBoy, (req,res) => {
+    res.send('next() gurinchi ardham ayindaa');
+});
+/********************************************************************** */
 
-function isGoodBoy(req,res,next) {
-    console.log(req);
+function isGoodBoy(req,res,next) {    
     // do some validation checks... req.headers & stuff...
     if(req.body.shouldAllow) { return next(); } 
     else { res.send('pampanu ra rey...'); }    
 }
 
-otherRouter.get('/nextCb', isGoodBoy, (req,res) => {
-    res.send('next() gurinchi ardham ayindaa');
-});
-
 /********************************************************************** */
-
-
 
 module.exports = otherRouter;
