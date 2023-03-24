@@ -41,5 +41,9 @@ router.post('/login',(req,res) => {
     }
 });
 
+router.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.send("logout success!");
+});
 /*******************************************************************/
 module.exports = router;

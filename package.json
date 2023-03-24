@@ -9,7 +9,7 @@
     "start23": "npm run kill23 && nodemon app.js",
     "kill": "kill -9 $(lsof -i :3044) &>/dev/null | exit 0",
     "kill23": "lsof -i:3044 | awk 'FNR==2 {print $2}' | xargs kill -9",
-    "use_this": "nodemon index.js 3044",
+    "start": "nodemon index.js 3044",
     "use_this_final": "node index.js 3044",
     "stop": "kill $(pidof 'simpleExpress')",
     "status": "$(pidof 'simpleExpress')"
