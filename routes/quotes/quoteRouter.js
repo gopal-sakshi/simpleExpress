@@ -1,9 +1,9 @@
 var express = require('express');
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
 const path = require('path');
 var router = express.Router();
 const fs = require('fs');
-
+const fsPromise = require('fs').promises;
 
 router.get('/', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../../resources') });
@@ -30,19 +30,28 @@ const addCommentFn23 = async (req, res, leagueName) => {
     if (!errors.isEmpty()) {
         console.log(errors);
         return res.status(400).json({ errors: errors.array() });
-    }    
-    console.log(req.body);
+    }
     fs.appendFile('resources/comments12.txt', JSON.stringify(req.body)+'\n', (err) => {
         if(err) res.send('phattu');
         else res.send('data appended');
     });    
 }
-
+const isPageIdValid = (pageId) => pageId > 43 ? false:true;
+async function checkEmailExists(email) {
+    const data = await fsPromise.readFile('resources/comments12.txt', { encoding: 'utf-8' });    
+    return new Promise((resolve, reject) => {
+        if(data.includes(email)) reject('email already registered');
+        else resolve(true);
+    });
+}
 router.post(
-    '/addComment',
-    body('email23').isEmail().normalizeEmail(),         
+    '/addComment/:pageId',
+    param('pageId').exists().toInt().custom(pageId => isPageIdValid(pageId)),
+    body('email23').isEmail().normalizeEmail(),
+    body('email23').custom(value => { return checkEmailExists(value)}),
     body('comment22').not().isEmpty().trim().escape(),
-    body('password').isLength({ min: 5 }),    
+    body('password').isLength({ min: 5 }),
+    body('confirmPassword').custom((value, {req}) => value == req.body.password),
     addCommentFn23);
 
 

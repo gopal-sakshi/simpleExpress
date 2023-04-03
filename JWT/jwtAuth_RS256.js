@@ -2,11 +2,10 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 var jwtInterface = {};
 
-// PRIVATE and PUBLIC key
 // var privateKey1  = fs.readFileSync('./privateKey.pem', 'utf8');
-// var publicKey1  = fs.readFileSync('./publicKey.pem', 'utf8');        // this'll work if you directly run this file
-                                                                        // like node jwtAuth.js
-                                                                        // but if u run from app.js (or) index.js ---> it fails
+// var publicKey1  = fs.readFileSync('./publicKey.pem', 'utf8');        
+        // this'll work if you directly run this file
+        // like node jwtAuth.js; but if u run from app.js (or) index.js ---> it fails
 
 var privateKey = fs.readFileSync('JWT/privateKey.pem', 'utf8');
 var publicKey = fs.readFileSync('JWT/publicKey.pem', 'utf8');
@@ -19,7 +18,7 @@ jwtInterface.generateToken = function(payload) {
         issuer:  'gopalSimpleExpress',                 // Software organization that issues the token.
         subject:  'some@user.com',                // Intended user of the token.
         audience:  'gopalSimpleExpress_A',               // Basically identity of the intended recipient of the token
-        expiresIn:  "60s",          // Expiration time after which the token will be invalid.
+        expiresIn:  "10h",          // Expiration time after which the token will be invalid.
         /*  
                     expiresIn: "10h" // it will be expired after 10 hours
                     expiresIn: "20d" // it will be expired after 20 days

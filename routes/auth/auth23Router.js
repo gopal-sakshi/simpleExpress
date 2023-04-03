@@ -2,7 +2,7 @@ var express = require('express');
 var authRouter = express.Router();
 const fs = require('fs');
 var path = require("path");
-var jwtInterface = require('../../JWT/jwtAuth');
+var jwtInterface = require('../../JWT/jwtAuth_RS256');
 
 authRouter.get('/signin', (req, res) => {    
     console.log('inside signInnn');    
@@ -64,16 +64,14 @@ authRouter.get('/secretArticles', (req, res) => {
     console.log(req.headers);
     const result44 = validateToken(req.headers.token);
     result44.then(details => {
-        console.log(details)
+        // console.log(details)
         if(typeof details == 'string' && details.includes('expired')) {
             // res.send(400).send('expired auth token');               // its not res.send().send() ----> its res.status().send()
             res.status(400).send('expired auth token');
-        }        
+        }
         else {
-            res.status(200).send({ 
-                data: 'secret Article - RM',
-                info: details
-            });
+            const { password, ...info23 } = details;
+            res.status(200).send({data: 'secret Article - RM', info: info23 });
         }
         // console.log('will this be logged even after res.send ??');   // yes, it will be logged
     }).catch(error => {
