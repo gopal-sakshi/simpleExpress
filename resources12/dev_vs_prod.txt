@@ -1,0 +1,20 @@
+Setting the environment to production generally ensures that
+    logging is kept to a minimum, essential level
+    more caching levels take place to optimize performance
+
+Pug engine in ExpressJS
+- compiles in debug mode if NODE_ENV is not set to production
+
+Express views are compiled in every request in development mode
+- while in production they are cached.
+----------------------------------------------------------------------------------------------------------------
+use different errorLoggers in dev vs production
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+}
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.errorHandler());
+}
+----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,16 @@
+Both the browser & Node use JavaScript as their programming language
+
+Browser
+- most of the time what you are doing is interacting with 
+    DOM
+    other Web Platform APIs like Cookies
+- document, window ===> not available in Node
+
+Node
+- you have access to filesystem (can read/write files from OS)
+- You can control environment in Node
+    what version of node our code runs in
+- but you cant control what browsers users use
+- both commonjs, ES module compliant
+    you can use both import & require
+    browsers only implement ES
