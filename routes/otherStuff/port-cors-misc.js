@@ -1,4 +1,5 @@
 const express = require('express');
+const https = require('https');
 const otherRouter = express.Router();
 const fs = require('fs').promises;
 const axios54 = require('axios');
@@ -29,6 +30,28 @@ otherRouter.get(/^\/(discussion|page)\/(.+)/, (req, res) => {
     console.log(req.params[1]);
     res.send({param1:req.params[0] , param2:req.params[1] });
 });
+
+
+otherRouter.get('/apiCall', async (req, res) => {
+    const url = 'https://official-joke-api.appspot.com/jokes/programming/random';
+    
+    // using axios
+    // var joke33 = await axios54.get(url, { headers : { 'Accept-Encoding': 'application/json' }});
+    // res.send(joke33.data);
+
+    // using fetch
+    // const joke34 = await fetch(url);
+    // // res.send(joke34.json());                 // WONT WORK
+    // res.send(await joke34.json());
+
+    // using https
+    https.get(url, (response) => {
+        let data = '';
+        response.on('data', (chunk) => { data = data + chunk.toString(); });    
+        response.on('end', () => { res.send(JSON.parse(data)); });
+    }).on('error', (err) => { res.send(err) }).end();
+});
+
 
 // this route will give Timed Out after 2 seconds;
 otherRouter.get('/timeout23', (req, res) => {
