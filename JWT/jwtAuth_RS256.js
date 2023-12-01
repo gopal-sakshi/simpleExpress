@@ -18,13 +18,7 @@ jwtInterface.generateToken = function(payload) {
         issuer:  'gopalSimpleExpress',                 // Software organization that issues the token.
         subject:  'some@user.com',                // Intended user of the token.
         audience:  'gopalSimpleExpress_A',               // Basically identity of the intended recipient of the token
-        expiresIn:  "10h",          // Expiration time after which the token will be invalid.
-        /*  
-                    expiresIn: "10h" // it will be expired after 10 hours
-                    expiresIn: "20d" // it will be expired after 20 days
-                    expiresIn: 120 // it will be expired after 120ms
-                    expiresIn: "120s" // it will be expired after 120s
-        */
+        expiresIn:  "10h",          // Expiration time after which the token will be invalid./* 10h, 20d, 120, 120s */
         algorithm:  "RS256"         // Encryption algorithm to be used to protect the token.
     };
 

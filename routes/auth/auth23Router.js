@@ -3,14 +3,9 @@ var authRouter = express.Router();
 const fs = require('fs');
 var path = require("path");
 var jwtInterface = require('../../JWT/jwtAuth_RS256');
+var passport23 = require('./passport23');
 
-authRouter.get('/signin', (req, res) => {    
-    console.log('inside signInnn');    
-    console.log(req.body);
-    res.send('gasoline');
-});
-
-authRouter.put('/signin', (req, res) => {
+authRouter.put('/signin', passport23.simpleCheck, (req, res) => {
     const result = validateSignin(req.body);    
     result.then(jwtToken => {
         if(jwtToken) {
@@ -81,6 +76,11 @@ authRouter.get('/secretArticles', (req, res) => {
             info: 'somethingey went wrong'
         })
     })
+})
+
+
+authRouter.get('/noAccess23', (req, res) => {
+    res.send({info: 'neeku access ledu babai', msg: 'no access324'})
 })
 
 async function validateSignin(payload) {
