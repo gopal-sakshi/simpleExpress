@@ -95,9 +95,16 @@ const sessionRouter = require('./routes/session12/session12Router');
 // });
 
 
-// LOAD TESTING ===> use apache bench marking tool
-  // ab -n 1000 -c 100 http://localhost:3044/stream
-  // see apache-bench
+/* 
+    LOAD TESTING ===> use apache bench marking tool
+        ab -n 1000 -c 100 http://localhost:3044/stream
+        see apache-bench
+    https://www.artillery.io/docs/get-started/first-test
+    ttd online queue --- load testing; add virtual queue to nodeJS
+    
+    LOAD TESTING
+        see scaling23.js file in testing_backend repo
+*/
 app.use('/auth', authRouter);
 app.use('/buffer', bufferRouter);
 app.use('/header', headerRouter);

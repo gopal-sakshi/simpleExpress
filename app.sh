@@ -1,22 +1,11 @@
 #!/bin/bash
-# display () {
-#   case $1 in
-#     "red") echo "\e[39m\e[21m $2 \e[1m\e[91m $3"
-#     echo "\e[39m\e[21m";
-#     ;;
-#     "green") echo "\e[39m\e[21m $2 \e[1m\e[92m $3"
-#     echo "\e[39m\e[21m";
-#     ;;
-#     "blue") echo "\e[39m\e[21m $2 \e[36m $3"
-#     echo "\e[39m\e[21m";
-#     ;;
-#   esac
-# }
+
+    # bash app.sh status | start | stop
 
 start() {
   status
   if [ "$isWorking" = "" ]; then
-    setsid node index.js 3044 &
+    setsid node index.js 3044 &                 # setsid ===> run a program in a new session
     echo "(_-¯λ¯-_TRIGGER STARTED_-¯λ¯-_)"
     exit 0;
   fi

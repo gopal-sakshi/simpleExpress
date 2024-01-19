@@ -12,6 +12,7 @@
     "start": "nodemon index.js 3044",
     "use_this_final": "node index.js 3044",
     "stop": "kill $(pidof 'simpleExpress')",
+    "process23": "sudo netstat -lpn | grep :'3044'",
     "status": "$(pidof 'simpleExpress')"
   },
   "author": "GopAL",
