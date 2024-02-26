@@ -18,21 +18,19 @@ authRouter.put('/signin', passport23.simpleCheck, (req, res) => {
     })    
 });
 
-authRouter.put('/signup', (req, res) => {
+authRouter.put('/signup', async (req, res) => {
     // console.log('inside signup');
     // console.log(req.body);
-    const result44 = appendFile23(req.body);
+    const result44 = await appendFile23(req.body);
     console.log(result44);
     res.setHeader('content-type', 'application/json');
-    result44.then(message => {
-        if(message) { 
-            let responseObject = {code: 200, data: '',info: 'signUp success' }
-            res.send(responseObject);
-        } else {
-            let responseObject = {code: 500, data: '',info: 'signUp failed' }
-            res.send(responseObject);
-        }
-    }).catch(err => res.send({code: 500, info:'Internal server error'}));
+    if(message) { 
+        let responseObject = {code: 200, data: '',info: 'signUp success' }
+        res.send(responseObject);
+    } else {
+        let responseObject = {code: 500, data: '',info: 'signUp failed' }
+        res.send(responseObject);
+    }
 });
 
 authRouter.get('/seeRumours', (req, res) => {
@@ -103,13 +101,17 @@ async function validateSignin(payload) {
 async function appendFile23(payload) {
     const userAccounts23 = `${path.resolve("./")}`+'/resources/userAccounts.txt';
     const dataToWrite = payload.userName + '_' + payload.password + '\r\n';
-    console.log(userAccounts23);
-    console.log(dataToWrite);
-    fs.appendFileSync(userAccounts23, dataToWrite, (err) => {
-        console.log(err);
-        return false;
-    });
-    return true;
+    // console.log(userAccounts23);
+    // console.log(dataToWrite);
+    return new Promise ((resolve, reject) => {
+        fs.appendFileSync(userAccounts23, dataToWrite, (err) => {
+            if(err) reject(false);
+            else {
+                console.log(dataToWrite);
+                resolve(true);
+            }
+        });
+    }); 
 }
 
 async function validateToken(payload) {
