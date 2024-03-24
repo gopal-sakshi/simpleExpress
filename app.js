@@ -164,4 +164,21 @@ app.use('/', (req, res) => {
   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
 });
 
+/****************************************************************************************/
+// app._router.stack.forEach(function(middleware){
+//     if(middleware.route){ // routes registered directly on the app
+//         routes.push(middleware.route);
+//     } else if(middleware.name === 'router'){ // router middleware 
+//         middleware.handle.stack.forEach(function(handler){
+//             route = handler.route;
+//             route && routes.push(route);
+//         });
+//     }
+// });
+
+let blah = app._router.stack          // registered routes
+//   .filter(r => r.route)    // take out all the middleware
+//   .map(r => r.route.path)  // get all the paths
+// console.log('list of routes ====> ', blah);
+/****************************************************************************************/
 module.exports = app;
