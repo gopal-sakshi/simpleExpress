@@ -112,7 +112,7 @@ app.use('/quote', quoteRouter);
 app.use('/stream', streamRouter);
 app.use('/moduleCache', moduleCacheRouter);
 app.use('/otherStuff',miscRouter);
-app.use('/soap14', soap14Router);
+// app.use('/soap14', soap14Router);
 app.use('/fileUpload23', fileUploadRouter);
 app.use('/cookieStuff', cookieRouter);
 app.use('/football23', footballRouter);

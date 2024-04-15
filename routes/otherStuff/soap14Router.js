@@ -1,5 +1,5 @@
 const express = require('express');
-var soap = require('soap');
+// var soap = require('soap');
 
 
 // THIS MIGHT FAIL
@@ -11,17 +11,18 @@ const soap14Router = express.Router();
 soap14Router.get('/soap1', (req,res) => {    
     var barcode = '0810047210061';
     var wsdlUrl = 'http://www.searchupc.com/service/UPCSearch.asmx?wsdl';
-    soap.createClient(wsdlUrl, function(err, soapClient){
+    res.send("soap disabled - not compatible with axios@1.6.8")
+    // soap.createClient(wsdlUrl, function(err, soapClient){
         
-        if (err) { 
-            console.log('phaattu ',err); 
-            return res.status(500).json(err); 
-        }
-        soapClient.GetProduct({ upc : barcode,  accesstoken : '7C8488AE-243C-47DD-B672-680EC6F7BE4A'}, function(err, result) {
-          if (err) { console.log('malli phattu ',err); return res.status(500).json(err); }
-          return res.json(result);  
-        });    
-    });
+    //     if (err) { 
+    //         console.log('phaattu ',err); 
+    //         return res.status(500).json(err); 
+    //     }
+    //     soapClient.GetProduct({ upc : barcode,  accesstoken : '7C8488AE-243C-47DD-B672-680EC6F7BE4A'}, function(err, result) {
+    //       if (err) { console.log('malli phattu ',err); return res.status(500).json(err); }
+    //       return res.json(result);  
+    //     });    
+    // });
 });
 
 /*
