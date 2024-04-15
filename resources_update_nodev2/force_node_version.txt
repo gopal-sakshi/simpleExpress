@@ -1,0 +1,14 @@
+
+use this in package.json
+
+"engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
+}
+
+.npmrc
+engine-strict=true
+
+
+package.json documentation
+https://docs.npmjs.com/cli/v10/configuring-npm/package-json

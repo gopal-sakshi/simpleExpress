@@ -1,15 +1,3 @@
-we need to update every 4-5 years
-- node version
-- dependencies
-
-I dont know what node version was used in writing this simpleExpress... 
-but I assume it is node 12
-
-https://nodejs.org/dist/
-- index.json
-- 
-
-============================================================================================
 APPROACH I
 npx npm-check-updates –u        ===> upgrades package.json to latest versions  
 npx npm-check-updates           ===> just lists latest versions... WONT UPDATE

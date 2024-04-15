@@ -1,0 +1,14 @@
+which versions of npm came with which versions of node
+
+we need to update every 4-5 years
+- node version
+- dependencies
+
+I dont know what node version was used in writing this simpleExpress... 
+but I assume it is node 12
+
+https://nodejs.org/dist/
+- index.json
+- 
+
+see nodejs_org_dist_index.json
