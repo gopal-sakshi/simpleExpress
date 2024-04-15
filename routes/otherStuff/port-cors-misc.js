@@ -17,8 +17,19 @@ otherRouter.put('/cors', (req, res) => {
     console.log(req.body);
     let url19 = 'https://api.postalpincode.in/pincode/'+req.body.pincode
     axios54({ method:'get', url: url19})
-        .then(response => { res.send(JSON.stringify(response.data)); })
-        .catch(error => { console.log(error); res.send('phattu, enduko mari');
+        .then(response => {
+            let resp23 = {
+                pincodesList23: response.data,
+                success23: true,
+                error23: false                 
+            } 
+            res.send(JSON.stringify(resp23)); 
+        })
+        .catch(error => { console.log(error); res.send({
+            pincodesList23: {},
+            success23: false,
+            error23: 'phattu, enduko mari'
+        });
     });    
 });
 

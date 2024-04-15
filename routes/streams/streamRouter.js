@@ -25,7 +25,8 @@ router.get('/path', (req, res) => {
         "__dirname": __dirname,
         "cwd": `${process.cwd()}`,
         "./": `${path.resolve("./")}`,
-        "filename": __filename
+        "filename": __filename,
+        "time23": new Date().toISOString()
     }
     res.send({paths: paths});
 });

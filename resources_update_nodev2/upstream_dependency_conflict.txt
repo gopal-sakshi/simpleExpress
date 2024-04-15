@@ -1,0 +1,41 @@
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! 
+npm ERR! While resolving: simple-express@1.0.0
+npm ERR! Found: axios@1.6.8
+npm ERR! node_modules/axios
+npm ERR!   axios@"^1.6.8" from the root project
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer axios@"^0.27.2" from soap@1.0.0
+npm ERR! node_modules/soap
+npm ERR!   soap@"^1.0.0" from the root project
+npm ERR! 
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR! 
+npm ERR! 
+npm ERR! For a full report see:
+npm ERR! /home/gopalakrishnas/.npm/_logs/2024-04-15T09_49_51_588Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: /home/gopalakrishnas/.npm/_logs/2024-04-15T09_49_51_588Z-debug-0.log
+
+===========================================================================================
+
+we are using axios@1.6.8
+- this is the latest version as on Apr 2024
+- installed at node_modules/axios
+
+but soap@1.0.0
+- this requires axios@0.27.2
+
+So, npm doesnt know which version to install
+
+--force
+forces the use of newest version, pinning all versions on package-lock.json
+
+--legacy-peer-deps
+completely ignores all peerDependencies
+uses newest version... without pinning on package-lock.json
+===========================================================================================
