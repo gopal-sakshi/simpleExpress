@@ -5,11 +5,12 @@ var path = require("path");
 var jwtInterface = require('../../JWT/jwtAuth_RS256');
 var passport23 = require('./passport23');
 
-authRouter.put('/signin', passport23.simpleCheck, (req, res) => {
+authRouter.put('/signin', (req, res) => {
     const result = validateSignin(req.body);    
     result.then(jwtToken => {
         if(jwtToken) {
             let responseObject = {code: 200, data: '',info: 'signIn success', userName:req.body.userName, password: req.body.password, token: jwtToken};
+            debugger
             res.setHeader('content-type', 'application/json');
             res.send(responseObject);   
         } else {            
