@@ -16,6 +16,9 @@ process.on('SIGINT', () => {
     });
 })
 
+require('./routes/otherStuff/redis23').redisServer23(server);
+app.use('/redis12', require('./routes/otherStuff/redis23').redisRouter);
+
 /***************************************************************** */
 function normalizePort(val) {
 

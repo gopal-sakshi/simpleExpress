@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>Socket and Redis in Node.js</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" 
+        integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" 
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="username">
+        <input type="text" id ="usernameTxt" name="usernameTxt" />
+        <input type="button" name="setUsername" value="Set Username" onclick="setUserName()" />
+    </div>
+    <div id="createroom">
+        <input type="text" id="roomNameTxt" name="roomNameTxt" />
+        <input type="button" id ="setRooomName" onclick="setRoomName()" name="setRooomName" value="Set Room Name" />
+        <input type="button" id ="joinRooomName" onclick="joinRoom23()" name="joinRooomName" value="Join" />
+    </div>
+    <div id="sendChat">
+        <input type="text" id = "chatTxt23" name="chatTxt" />
+        <input type="button" name="sendBtn" value="Send" />
+    </div>
+    <!-- <script type="text/javascript" src="./redis23_socketio.js"></script> -->
+    <script>
+
+var username = "anonymous";
+var roomname = "anonymous";
+
+function setUserName() {
+    console.log("username222 ")
+    if (document.getElementById('usernameTxt').value != "") {
+        username = document.getElementById('usernameTxt').value;
+        socket.emit('setUsername23', { user: username });
+    }
+}
+
+function setRoomName() {
+    roomname = document.getElementById('roomNameTxt').value;
+    socket.emit('createRoom', { user: username, room: roomname });
+}
+
+function joinRoom23() {
+    roomname = document.getElementById('roomNameTxt').value;
+    socket.emit('joinRooom', { userName: Date.now() + '__user', room: roomname });
+}
+
+var socket = io('http://localhost:3044/', { path: '/socket23', transports: ['websocket'] });
+
+socket.on('connect', function () {
+    console.log("Connected");
+});
+
+socket.on('message', function (message) {
+    console.log("message received ===> ", message)
+    content.append(message + '<br />');
+});
+
+socket.on('disconnect', function () {
+    console.log('disconnected');
+    content.html("<b>Disconnected!</b>");
+});
+
+function sendMsg23() {
+    var msg = {
+        user: username,
+        room: roomname,
+        msg: document.getElementById('chatTxt23').value
+    }
+    socket.emit('chatMessage', msg);
+    document.getElementById('chatTxt23').value = '';
+}
+
+    </script>
+</body>
+
+</html>

@@ -162,9 +162,9 @@ app.use('/asyncLocalStorage2', (req, res) => {
 });
 
 // Use this at the last... if you use it at first, all /auth, /buffer ---> matches this route
-app.use('/', (req, res) => {
-  res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
-});
+// app.use('/', (req, res) => {
+//   res.send('<h1>Welcome to simple Express</h1><div>Use this routes - /stream, /quote </div>');
+// });
 
 /****************************************************************************************/
 // app._router.stack.forEach(function(middleware){
