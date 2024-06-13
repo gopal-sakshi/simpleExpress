@@ -21,26 +21,28 @@ async function redisServer23(server23) {
     const users23 = [];
 
     io.on('connection', (socket) => {
-        console.log(`connected to `);
-
-        socket.on('joinRoom', ({ username, room }) => {
-            console.log(`connected to room `);
-            const user = users23.push({id: socket.id, username, room});
+        console.log(`evado client connect ayyaadu ===> `, socket.id);
+        // console.log("connected clients ===> ", io.sockets.sockets.clients());
+        console.log("clients in football12 room ====> ", io.sockets.adapter.rooms.get('football12'))
+        socket.on('joinRoom', ({ userName, room }) => {
+            console.log(`client gaadu joinRoom msg emit chesaadu `, userName, room);
+            users23.push({id: socket.id, userName, room});
     
-            socket.join(user.room);
+            socket.join(room);
     
             //Welcome current user
             socket.emit('message', { time: Date.now(), msg: 'welcome user23'});
     
             //broadcase when a user connects
-            socket.broadcast.to(user.room).emit('message', { time: Date.now(), msg: 'evado join ayyadu' });
+            socket.broadcast.to(room).emit('message', { time: Date.now(), msg: 'evado join ayyadu' });
         });
     
         //Listen for chatMessage
-        socket.on('chatMessage', (msg) => {
+        socket.on('chatMessage', (msgObj) => {
+            console.log("client gaadu chatMessage event emit chesaadu ", JSON.stringify(msgObj))
             const user = users23.find((user) => socket.id === user.id);
-            console.log(`Chat Message: ${msg} from ${user.username}`);
-            io.to(user.room).emit('message', { time: Date.now(), msg: msg });
+            console.log(`Chat Message23 ====>: ${msgObj.msg} from ${user.userName}`);
+            io.to(user.room).emit('message', { time: Date.now(), msg: msgObj.msg });
         });
     
         // socket.on('disconnect', () => {

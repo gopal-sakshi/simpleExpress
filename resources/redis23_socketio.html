@@ -19,14 +19,15 @@
     </div>
     <div id="sendChat">
         <input type="text" id = "chatTxt23" name="chatTxt" />
-        <input type="button" name="sendBtn" value="Send" />
+        <input type="button" name="sendBtn" onclick="sendMsg23()" value="Send" />
     </div>
+    <div id="content23"></div>
     <!-- <script type="text/javascript" src="./redis23_socketio.js"></script> -->
     <script>
 
 var username = "anonymous";
 var roomname = "anonymous";
-
+var content = document.getElementById('content23');
 function setUserName() {
     console.log("username222 ")
     if (document.getElementById('usernameTxt').value != "") {
@@ -42,7 +43,7 @@ function setRoomName() {
 
 function joinRoom23() {
     roomname = document.getElementById('roomNameTxt').value;
-    socket.emit('joinRooom', { userName: Date.now() + '__user', room: roomname });
+    socket.emit('joinRoom', { userName: Date.now() + '__user', room: roomname });
 }
 
 var socket = io('http://localhost:3044/', { path: '/socket23', transports: ['websocket'] });
@@ -53,17 +54,17 @@ socket.on('connect', function () {
 
 socket.on('message', function (message) {
     console.log("message received ===> ", message)
-    content.append(message + '<br />');
+    content.innerHTML = content.innerHTML + '<br>' + message.msg + '  ' + '<u>' + message.time + '</u';
 });
 
 socket.on('disconnect', function () {
     console.log('disconnected');
-    content.html("<b>Disconnected!</b>");
+    content.innerHTML = "<b>Disconnected!</b>";
 });
 
 function sendMsg23() {
     var msg = {
-        user: username,
+        username: username,
         room: roomname,
         msg: document.getElementById('chatTxt23').value
     }

@@ -62,4 +62,9 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+process.on('SIGINT', function() {
+    console.log( "\nGracefully shutting down23 from SIGINT (Ctrl-C)" );
+    process.exit(0);
+});
 /***************************************************************** */
