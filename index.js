@@ -15,7 +15,7 @@ process.on('SIGINT', () => {
         process.exit();
     });
 })
-
+console.log("node version ----> change in launch.json ====> ", process.version);
 require('./routes/otherStuff/redis23').redisServer23(server);
 app.use('/redis12', require('./routes/otherStuff/redis23').redisRouter);
 
