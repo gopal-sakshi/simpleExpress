@@ -14,10 +14,12 @@ process.on('SIGINT', () => {
         console.log('Http server closed.');
         process.exit();
     });
-})
+});
 console.log("node version ----> change in launch.json ====> ", process.version);
-require('./routes/otherStuff/redis23').redisServer23(server);
-app.use('/redis12', require('./routes/otherStuff/redis23').redisRouter);
+
+console.log("redis-socketio disabled23 ====> ")
+// require('./routes/otherStuff/redis23').redisServer23(server);
+// app.use('/redis12', require('./routes/otherStuff/redis23').redisRouter);
 
 /***************************************************************** */
 function normalizePort(val) {

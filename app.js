@@ -70,7 +70,7 @@ app.use(function (req, res, next) {
   // if you remove token in allow-headers... then, you'll get CORS error for any http request headers with token property  (OR)
   // if http request header has token ---> then access-control-allow-headers MUST contain token ---> so that it wont throw cors error
   // or simply you can do this -----> Access-Control-Allow-Headers, '*'
-  res.setHeader('Access-Control-Allow-Headers', ['withCredentials', 'content-type']);
+  res.setHeader('Access-Control-Allow-Headers', ['withCredentials', 'content-type', 'token', 'authorization']);
   res.setHeader('Access-Control-Allow-Credentials', true);  
   next(); 
 })

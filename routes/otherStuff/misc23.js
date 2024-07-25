@@ -18,6 +18,34 @@ miscRouter.get('/openresty23', (req,res) => {
     });
 });
 
+miscRouter.get('/openresty24', (req,res) => {
+    console.log("upstream ki vachindiii ", new Date().toISOString())
+    res.status(200).send({
+        info: `hmmm, openresty caching`,
+        time23: new Date().toISOString()
+    });
+});
+
+miscRouter.get('/openresty25/rateLimit1', (req,res) => {
+    console.log("rateLimit1 ", new Date().toISOString())
+    res.status(200).send({
+        info: `hmmm, openresty caching`,
+        time23: new Date().toISOString()
+    });
+});
+
+miscRouter.get('/forward23', (req,res) => {
+    console.log("forward23 ===> ", req.socket.localPort, req.socket.remotePort, req.headers.port, req.headers.origin);
+    console.log("headers ===> ", req.headers["header45"], req.headers["header46"])
+    res.status(200).send({
+        info1: `forward proxy23`,
+        info2: ` openresty lo set chesina headers choodu`,
+        headers11: { 11: req.headers["header45"], 12: req.headers["header46"]},
+        time23: new Date().toISOString(),
+
+    });
+});
+
 // Server Side Events (SSE); server-side-events
 miscRouter.get('/server-side-events23', sseHandler23);
 miscRouter.post('/server-side-events23', postFacts23);

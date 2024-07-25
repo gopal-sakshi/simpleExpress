@@ -13,7 +13,7 @@ function generateToken(payload) {
         algorithm:  "HS256"
     };
     var jwtToken = jwt.sign(payload, secretKey, signOptions);
-    console.log("token23 -----> " + jwtToken);
+    // console.log("token23 -----> " + jwtToken);
     return jwtToken;
 }
 const payload22 = { name: 'GopAL', age:33, hobbies: ["chess", "football"]};

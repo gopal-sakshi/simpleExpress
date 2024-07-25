@@ -4,7 +4,9 @@ var path = require("path");
 var router = express.Router();
 var fs = require('fs');
 
+let streamCount = 0;
 router.get('/', (req, res) => {
+    console.log("streamCount ====> ", ++streamCount);
     res.send('Welcome to streams');
 });
 

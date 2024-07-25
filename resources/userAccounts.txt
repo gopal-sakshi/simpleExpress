@@ -1,5 +1,3 @@
-gopal_gopalPassword
-priya_priyaPassword
-1_1
-2_2
+gopal_123
+priya_123
 testuser11_password11

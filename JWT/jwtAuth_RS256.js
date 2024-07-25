@@ -21,9 +21,9 @@ jwtInterface.generateToken = function(payload) {
         expiresIn:  "10h",          // Expiration time after which the token will be invalid./* 10h, 20d, 120, 120s */
         algorithm:  "RS256"         // Encryption algorithm to be used to protect the token.
     };
-
+    signOptions.expiresIn = payload.expiresIn ? payload.expiresIn: signOptions.expiresIn
     var jwtToken = jwt.sign(payload, privateKey, signOptions);
-    console.log("token23 -----> " + jwtToken);     // Our token is generated    
+    // console.log("token23 -----> " + jwtToken);     // Our token is generated    
     return jwtToken;    
 }
 
@@ -40,14 +40,14 @@ jwtInterface.verifyToken = function(payload) {
 
     try {
         var tokenData = jwt.verify(payload, publicKey, verifyOptions);     // here, we use publicKey to verify
-        console.log("JWT verification result: " + JSON.stringify(tokenData));
+        // console.log("JWT verification result: success23 " + JSON.stringify(tokenData));
         return tokenData
     } catch(error) {
-        console.log(error);
+        console.log("error @ catch block", error.name);
         if (error.name == jwt.TokenExpiredError.name) {
-            return `TOKEN expired @ ${jwt.TokenExpiredError.expiredAt}`
+            return `TOKEN expired @ ${jwt.TokenExpiredError.expiredAt}`;
         } else {
-            return 'INVALID TOKEN'
+            return 'INVALID TOKEN';
         }        
     }
     
