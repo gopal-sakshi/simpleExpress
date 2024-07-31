@@ -36,6 +36,7 @@ miscRouter.get('/openresty25/rateLimit1', (req,res) => {
 
 miscRouter.get('/forward23', (req,res) => {
     console.log("forward23 ===> ", req.socket.localPort, req.socket.remotePort, req.headers.port, req.headers.origin);
+    console.log("forward24 ===> ", req.socket.remoteAddress, "__", req.get('host'), "__", req.get('origin'));
     console.log("headers ===> ", req.headers["header45"], req.headers["header46"])
     res.status(200).send({
         info1: `forward proxy23`,
