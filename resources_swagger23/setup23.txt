@@ -1,0 +1,6 @@
+https://blog.logrocket.com/documenting-express-js-api-swagger/
+
+npm i swagger-ui-express swagger-jsdoc
+
+
+http://localhost:3044/football23/api-docs/

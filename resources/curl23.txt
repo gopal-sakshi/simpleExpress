@@ -3,7 +3,7 @@ curl localhost:3044 > blah23.txt
 
 curl -X POST localhost:3044/quote/addQuote
 -H 'Content-Type: application/json'
-   -d '{"legend" : "tit for tat"}'                                                                              // next line doesnt work
+   -d '{"legend" : "tit for tat"}'      // next line doesnt work
 
 curl -X POST localhost:3044/quote/addQuote -H 'Content-Type: application/json' -d '{"legend" : "tit for tat"}'          // WORKS
 

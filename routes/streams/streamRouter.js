@@ -7,7 +7,7 @@ var fs = require('fs');
 let streamCount = 0;
 router.get('/', (req, res) => {
     console.log("streamCount ====> ", ++streamCount);
-    res.send('Welcome to streams');
+    res.send(`Welcome to streams ${new Date().toISOString()}`);
 });
 
 router.get('/endpoint1', async (req, res) => {

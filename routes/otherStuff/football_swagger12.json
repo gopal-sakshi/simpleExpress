@@ -1,0 +1,50 @@
+{
+    "swagger": "2.0",
+    "info": { 
+        "description": "football_desc_swagger23",
+        "title": "simpleExp_footballRouter23"
+    },
+    "host": "localhost:3044/football23/swagger11",
+    "schems": [
+        "https", "http"
+    ],
+    "paths": {
+        "/route1" : {
+            "post": { 
+                "summary": "post call 23",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "postcall33",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj31"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "tannindi po - id pettu nuvvu"
+                    },
+                    "404": { "description": "phattu - name edi ra" },
+                    "200": {
+                        "description": "operation success23"
+                    }
+                }
+            },
+            "put": { }
+        }
+    },
+    "definitions":{
+        "obj31": {
+            "type": "object",
+            "required": [ "id23", "name23" ],
+            "properties": {
+                "id23": { "type": "integer", "format": "int64" },
+                "name23": { "type": "string", "example": "string ante telsu gaa" },
+                "optionalProp11": { "type": "object" }
+            }
+        }
+    }
+}
