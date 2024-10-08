@@ -47,13 +47,19 @@ miscRouter.get('/forward23', (req,res) => {
     });
 });
 
-// Server Side Events (SSE); server-side-events
-miscRouter.get('/server-side-events23', sseHandler23);
-miscRouter.post('/server-side-events23', postFacts23);
+// Server SENT Events (SSE); server-sent-events
+miscRouter.get('/server-sent-events23', sseHandler23);
+miscRouter.post('/server-sent-events23', postFacts23);
+
+
+/********************************************************************************/
+miscRouter.get('/server-sent-events24', require('./misc23_sse24').sseHandler24);
+
+/********************************************************************************/
 /*
     HOW to test SSEs
-    - open two terminals --->       curl -H Accept:text/event-stream http://localhost:3044/misc22/server-side-events23
-    - open postman ---> http://localhost:3044/misc22/server-side-events23
+    - open two terminals --->       curl -H Accept:text/event-stream http://localhost:3044/misc22/server-sent-events23
+    - open postman ---> http://localhost:3044/misc22/server-sent-events23
 */
 
 async function postFacts23(req, res, next) {
@@ -77,6 +83,7 @@ async function sseHandler23(req, res, next) {
         'Cache-Control': 'no-cache'
     }
     res.writeHead(200, headers);
+
     const data = `data: ${JSON.stringify(facts)}\n\n`;
     res.write(data);
     const clientId = Date.now();
